@@ -1,5 +1,6 @@
 package com.rutas.modelo;
 
-public class CriterioRuta {
-    
+public enum CriterioRuta {
+    MENOR_TIEMPO,
+    MENOR_COSTO
 }
