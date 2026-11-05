@@ -1,0 +1,5 @@
+4
+AAA 100 100 Ciudad_A Pais_A
+BBB 200 100 Ciudad_B Pais_B
+CCC 300 100 Ciudad_C Pais_C
+DDD 400 100 Ciudad_D Pais_D
