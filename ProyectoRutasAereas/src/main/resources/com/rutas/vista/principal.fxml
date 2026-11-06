@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<!--
+  Ventana principal.
+  Centro: el mapa (MapaAeropuertos se agrega desde el controlador dentro de contenedorMapa).
+  Derecha: panel de controles y resultados.
+  Abajo: barra de mensajes.
+-->
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.rutas.controlador.ControladorRutas"
+            styleClass="raiz"
+            prefWidth="1400" prefHeight="900">
+
+    <center>
+        <StackPane fx:id="contenedorMapa" styleClass="contenedor-mapa"/>
+    </center>
+
+    <right>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefWidth="400" styleClass="panel-scroll">
+            <VBox spacing="12" styleClass="panel">
+
+                <!-- ================= ARCHIVOS ================= -->
+                <VBox spacing="6" styleClass="seccion">
+                    <Label text="Datos" styleClass="titulo-seccion"/>
+                    <Label fx:id="lblArchivos" wrapText="true" styleClass="texto-secundario"/>
+                    <Button text="Cargar otros archivos…" onAction="#cargarArchivos" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- ================= BUSCAR RUTA ================= -->
+                <VBox spacing="8" styleClass="seccion">
+                    <Label text="Buscar ruta" styleClass="titulo-seccion"/>
+                    <Label text="Escriba el código o haga clic en el mapa: clic izquierdo = origen, clic derecho = destino."
+                           wrapText="true" styleClass="texto-secundario"/>
+
+                    <GridPane hgap="8" vgap="6">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="60"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints/>
+                        </columnConstraints>
+                        <Label text="Origen" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cbOrigen" editable="true" maxWidth="Infinity"
+                                  GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Button text="⇅" onAction="#intercambiar" GridPane.rowIndex="0" GridPane.columnIndex="2"
+                                GridPane.rowSpan="2" maxHeight="Infinity"/>
+                        <Label text="Destino" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cbDestino" editable="true" maxWidth="Infinity"
+                                  GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    </GridPane>
+
+                    <fx:define>
+                        <ToggleGroup fx:id="grupoCriterio"/>
+                    </fx:define>
+                    <FlowPane hgap="14" vgap="6">
+                        <RadioButton fx:id="rbEscalas" text="Menos escalas" toggleGroup="$grupoCriterio" selected="true"/>
+                        <RadioButton fx:id="rbRapida" text="Más rápida" toggleGroup="$grupoCriterio"/>
+                        <RadioButton fx:id="rbBarata" text="Más barata" toggleGroup="$grupoCriterio"/>
+                    </FlowPane>
+
+                    <HBox spacing="8">
+                        <Button text="Buscar ruta" onAction="#buscarRuta" defaultButton="true"
+                                styleClass="boton-principal" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Comparar las 3" onAction="#compararCriterios"/>
+                    </HBox>
+
+                    <GridPane hgap="8" vgap="4" styleClass="resultado">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="105"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <Label text="Ruta" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="etiqueta"/>
+                        <Label fx:id="lblSecuencia" text="—" wrapText="true" styleClass="valor-secuencia"
+                               GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <Label text="Vuelos" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="etiqueta"/>
+                        <Label fx:id="lblVuelos" text="—" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="valor"/>
+                        <Label text="Minutos" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="etiqueta"/>
+                        <Label fx:id="lblMinutos" text="—" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="valor"/>
+                        <Label text="Costo" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="etiqueta"/>
+                        <Label fx:id="lblCosto" text="—" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="valor"/>
+                    </GridPane>
+                </VBox>
+
+                <!-- ================= ANIMACIÓN ================= -->
+                <VBox spacing="8" styleClass="seccion">
+                    <Label text="Animación del vuelo" styleClass="titulo-seccion"/>
+                    <HBox spacing="8">
+                        <Button fx:id="btnVolar" text="▶ Volar" onAction="#volar" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button fx:id="btnPausar" text="⏸ Pausar" onAction="#pausarContinuar" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button fx:id="btnReiniciar" text="⟲ Reiniciar" onAction="#reiniciarVuelo" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    </HBox>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Velocidad"/>
+                        <Slider fx:id="sliderVelocidad" min="0.5" max="4" value="1"
+                                showTickMarks="true" majorTickUnit="0.5" minorTickCount="0"
+                                HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblVelocidad" text="1.0x" minWidth="36"/>
+                    </HBox>
+                    <GridPane hgap="8" vgap="4" styleClass="resultado">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="105"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <Label text="Estado" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="etiqueta"/>
+                        <Label fx:id="lblEstadoVuelo" text="—" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="valor"/>
+                        <Label text="Tramo" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="etiqueta"/>
+                        <Label fx:id="lblTramo" text="—" wrapText="true" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        <Label text="Minutos acum." GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="etiqueta"/>
+                        <Label fx:id="lblMinutosAcum" text="—" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="valor"/>
+                        <Label text="Costo acum." GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="etiqueta"/>
+                        <Label fx:id="lblCostoAcum" text="—" GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="valor"/>
+                    </GridPane>
+                </VBox>
+
+                <!-- ================= CONSULTAS ================= -->
+                <VBox spacing="8" styleClass="seccion">
+                    <Label text="Consultas sobre el origen" styleClass="titulo-seccion"/>
+                    <Button text="Datos y rutas salientes" onAction="#consultarAeropuerto" maxWidth="Infinity"/>
+                    <Button text="Destinos alcanzables desde el origen" onAction="#mostrarAlcanzables"
+                            maxWidth="Infinity"/>
+                    <Button text="Aeropuertos que pueden llegar al origen" onAction="#mostrarQuienLlega"
+                            maxWidth="Infinity"/>
+                    <FlowPane hgap="12" vgap="4">
+                        <HBox spacing="4" alignment="CENTER_LEFT">
+                            <Circle radius="5" styleClass="leyenda-consultado"/><Label text="Consultado"/>
+                        </HBox>
+                        <HBox spacing="4" alignment="CENTER_LEFT">
+                            <Circle radius="5" styleClass="leyenda-alcanzable"/><Label text="Se conecta"/>
+                        </HBox>
+                        <HBox spacing="4" alignment="CENTER_LEFT">
+                            <Circle radius="5" styleClass="leyenda-no-alcanzable"/><Label text="No se conecta"/>
+                        </HBox>
+                    </FlowPane>
+                    <Button text="Limpiar mapa" onAction="#limpiarMapa" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- ================= CANCELAR RUTAS ================= -->
+                <VBox spacing="8" styleClass="seccion">
+                    <Label text="Cancelar y restaurar rutas" styleClass="titulo-seccion"/>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <ComboBox fx:id="cbCancelarOrigen" promptText="Origen" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Label text="→"/>
+                        <ComboBox fx:id="cbCancelarDestino" promptText="Destino" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    </HBox>
+                    <HBox spacing="8">
+                        <Button text="Cancelar ruta" onAction="#cancelarRuta" styleClass="boton-peligro"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        <Button text="Restaurar todas" onAction="#restaurarRutas"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    </HBox>
+                    <Label text="Rutas canceladas:" styleClass="texto-secundario"/>
+                    <ListView fx:id="lstCanceladas" prefHeight="80"/>
+                </VBox>
+
+                <!-- ================= DETALLE ================= -->
+                <VBox spacing="6" styleClass="seccion">
+                    <Label text="Detalle" styleClass="titulo-seccion"/>
+                    <TextArea fx:id="txtDetalle" editable="false" wrapText="true" prefRowCount="12"
+                              styleClass="detalle"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </right>
+
+    <bottom>
+        <Label fx:id="lblMensaje" text="Listo." styleClass="barra-mensaje" maxWidth="Infinity"/>
+    </bottom>
+
+</BorderPane>
