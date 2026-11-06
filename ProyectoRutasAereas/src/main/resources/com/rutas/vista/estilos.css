@@ -1,0 +1,195 @@
+/* =========================================
+   ESTILOS DE LA INTERFAZ - Rutas Aéreas
+   ========================================= */
+
+.raiz {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #eef1f5;
+}
+
+/* ---------- Panel derecho ---------- */
+
+.panel-scroll,
+.panel-scroll > .viewport {
+    -fx-background-color: #eef1f5;
+    -fx-background-insets: 0;
+}
+
+.panel {
+    -fx-padding: 12;
+}
+
+.seccion {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #d9dee6;
+    -fx-border-radius: 8;
+    -fx-padding: 12;
+}
+
+.titulo-seccion {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f3a5f;
+}
+
+.texto-secundario {
+    -fx-text-fill: #667085;
+    -fx-font-size: 12px;
+}
+
+.resultado {
+    -fx-background-color: #f6f8fb;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+}
+
+.etiqueta {
+    -fx-text-fill: #667085;
+}
+
+.valor {
+    -fx-font-weight: bold;
+}
+
+.valor-secuencia {
+    -fx-font-weight: bold;
+    -fx-text-fill: #c2410c;
+}
+
+.boton-principal {
+    -fx-background-color: #1f6feb;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.boton-principal:hover {
+    -fx-background-color: #1858c4;
+}
+
+.boton-peligro {
+    -fx-background-color: #fde8e8;
+    -fx-text-fill: #b42318;
+}
+
+.detalle {
+    -fx-font-family: "Consolas", "Menlo", monospace;
+    -fx-font-size: 12px;
+}
+
+.barra-mensaje {
+    -fx-background-color: #1f3a5f;
+    -fx-text-fill: white;
+    -fx-padding: 6 12;
+}
+
+/* ---------- Mapa ---------- */
+
+.contenedor-mapa {
+    -fx-padding: 10;
+}
+
+.mapa-fondo {
+    -fx-fill: #fbfcfe;
+    -fx-stroke: #c9d1dc;
+    -fx-stroke-width: 1;
+}
+
+/* Rutas normales */
+.ruta {
+    -fx-stroke: #9aa7b8;
+    -fx-stroke-width: 1;
+    -fx-opacity: 0.7;
+}
+
+.ruta:hover {
+    -fx-stroke: #1f3a5f;
+    -fx-stroke-width: 2.5;
+    -fx-opacity: 1;
+}
+
+/* Rutas canceladas: rojas y punteadas */
+.ruta-cancelada {
+    -fx-stroke: #e5484d;
+    -fx-stroke-width: 2;
+    -fx-stroke-dash-array: 6 5;
+    -fx-opacity: 1;
+}
+
+/* Ruta encontrada */
+.ruta-resaltada {
+    -fx-stroke: #f97316;
+    -fx-stroke-width: 4.5;
+    -fx-stroke-line-cap: round;
+}
+
+.flecha {
+    -fx-fill: #c2410c;
+}
+
+/* Aeropuertos */
+.aeropuerto {
+    -fx-fill: #d62828;
+    -fx-stroke: white;
+    -fx-stroke-width: 1.5;
+    -fx-cursor: hand;
+}
+
+.aeropuerto:hover {
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 1.5;
+}
+
+.codigo-aeropuerto {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-fill: #1f2937;
+}
+
+/* Selección antes de buscar */
+.seleccion-origen {
+    -fx-stroke: #16a34a;
+    -fx-stroke-width: 4;
+}
+
+.seleccion-destino {
+    -fx-stroke: #2563eb;
+    -fx-stroke-width: 4;
+}
+
+/* Ruta encontrada: origen, escalas y destino */
+.aeropuerto-origen {
+    -fx-fill: #16a34a;
+}
+
+.aeropuerto-escala {
+    -fx-fill: #f97316;
+}
+
+.aeropuerto-destino {
+    -fx-fill: #2563eb;
+}
+
+/* Alcanzables / no alcanzables */
+.aeropuerto-consultado,
+.leyenda-consultado {
+    -fx-fill: #7c3aed;
+}
+
+.aeropuerto-alcanzable,
+.leyenda-alcanzable {
+    -fx-fill: #16a34a;
+}
+
+.aeropuerto-no-alcanzable,
+.leyenda-no-alcanzable {
+    -fx-fill: #9ca3af;
+}
+
+/* Avión */
+.avion {
+    -fx-fill: #0f172a;
+    -fx-stroke: white;
+    -fx-stroke-width: 1.2;
+}
