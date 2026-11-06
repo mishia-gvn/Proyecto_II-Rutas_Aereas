@@ -1,15 +1,18 @@
 package com.rutas;
 
-import com.rutas.servicio.GestorRutas;
-
 import com.rutas.modelo.Aeropuerto;
-import com.rutas.modelo.Ruta;
-import com.rutas.modelo.ResultadoRuta;
 import com.rutas.modelo.CriterioRuta;
+import com.rutas.modelo.ResultadoRuta;
+import com.rutas.modelo.Ruta;
+import com.rutas.servicio.GestorRutas;
 
 import java.util.Scanner;
 
 public class PruebaBackend {
+
+    // =========================================
+    // 1. METODO PRINCIPAL
+    // =========================================
 
     public static void main(String[] args) {
 
@@ -17,10 +20,14 @@ public class PruebaBackend {
             GestorRutas gestor = new GestorRutas();
 
             // Cargar los datos originales
-            gestor.cargarDatos("datos/aeropuertos.txt", "datos/rutas.txt");
+            gestor.cargarDatos(
+                    "datos/aeropuertos.txt",
+                    "datos/rutas.txt"
+            );
 
             System.out.println("\nDatos cargados correctamente.");
-            System.out.println("Aeropuertos: " + gestor.obtenerTodosAeropuertos().size());
+            System.out.println("Aeropuertos: "
+                    + gestor.obtenerTodosAeropuertos().size());
             System.out.println("Rutas: " + contarRutas(gestor));
 
             Scanner entrada = new Scanner(System.in);
@@ -97,7 +104,7 @@ public class PruebaBackend {
     }
 
     // =========================================
-    // MENU PRINCIPAL
+    // 2. MENU PRINCIPAL
     // =========================================
 
     public static void mostrarMenu() {
@@ -119,7 +126,7 @@ public class PruebaBackend {
     }
 
     // =========================================
-    // EJECUTAR TODAS LAS PRUEBAS
+    // 3. EJECUTAR TODAS LAS PRUEBAS
     // =========================================
 
     public static void ejecutarTodasLasPruebas(GestorRutas gestor) {
@@ -151,7 +158,7 @@ public class PruebaBackend {
     }
 
     // =========================================
-    // PRUEBAS DE BFS
+    // 4. PRUEBAS DE BFS
     // =========================================
 
     public static void ejecutarPruebasBFS(GestorRutas gestor) {
@@ -161,35 +168,57 @@ public class PruebaBackend {
         probarBFS(gestor, "SJO", "MVD");
     }
 
-    public static void probarBFS(GestorRutas gestor, String origen, String destino) {
+    public static void probarBFS(
+            GestorRutas gestor, String origen, String destino) {
+
         System.out.println("\nViaje: " + origen + " -> " + destino);
-        ResultadoRuta resultado = gestor.buscarMenosVuelos(origen, destino);
+
+        ResultadoRuta resultado =
+                gestor.buscarMenosVuelos(origen, destino);
+
         mostrarResultado(resultado);
     }
 
     // =========================================
-    // PRUEBAS DE DFS
+    // 5. PRUEBAS DE DFS
     // =========================================
 
     public static void probarDFS(GestorRutas gestor, String origen) {
+
         System.out.println("\nOrigen: " + origen);
-        
+
         System.out.println("\nAeropuertos alcanzables:");
+
         for (String codigo : gestor.obtenerAlcanzables(origen)) {
             System.out.println("  " + codigo);
         }
-        
+
         System.out.println("\nAeropuertos no alcanzables:");
+
         for (String codigo : gestor.obtenerNoAlcanzables(origen)) {
             System.out.println("  " + codigo);
         }
 
-        System.out.println("\nTotal alcanzables: " + gestor.obtenerAlcanzables(origen).size());
-        System.out.println("Total no alcanzables: " + gestor.obtenerNoAlcanzables(origen).size());
+        System.out.println("\nTotal alcanzables: "
+                + gestor.obtenerAlcanzables(origen).size());
+
+        System.out.println("Total no alcanzables: "
+                + gestor.obtenerNoAlcanzables(origen).size());
+
+        // Consultar los aeropuertos desde los que se puede llegar al destino
+        System.out.println("\nAeropuertos desde los que se puede llegar a " + origen + ":");
+
+        for (String codigo : gestor.obtenerOrigenesAlcanzables(origen)) {
+            System.out.println("  " + codigo);
+        }
+
+        System.out.println("\nTotal de aeropuertos que pueden llegar a "
+                + origen + ": "
+                + gestor.obtenerOrigenesAlcanzables(origen).size());
     }
 
     // =========================================
-    // PRUEBAS DE DIJKSTRA
+    // 6. PRUEBAS DE DIJKSTRA
     // =========================================
 
     public static void ejecutarPruebasDijkstra(GestorRutas gestor) {
@@ -199,23 +228,36 @@ public class PruebaBackend {
         probarDijkstra(gestor, "SJO", "MVD");
     }
 
-    public static void probarDijkstra(GestorRutas gestor, String origen, String destino) {
+    public static void probarDijkstra(
+            GestorRutas gestor, String origen, String destino) {
+
         System.out.println("\nViaje: " + origen + " -> " + destino);
-        
+
         System.out.println("\n--- MENOR TIEMPO ---");
-        ResultadoRuta resultadoTiempo = gestor.buscarRutaOptima(origen, destino, CriterioRuta.MENOR_TIEMPO);
+
+        ResultadoRuta resultadoTiempo =
+                gestor.buscarRutaOptima(
+                        origen, destino, CriterioRuta.MENOR_TIEMPO
+                );
+
         mostrarResultado(resultadoTiempo);
 
         System.out.println("\n--- MENOR COSTO ---");
-        ResultadoRuta resultadoCosto = gestor.buscarRutaOptima(origen, destino, CriterioRuta.MENOR_COSTO);
+
+        ResultadoRuta resultadoCosto =
+                gestor.buscarRutaOptima(
+                        origen, destino, CriterioRuta.MENOR_COSTO
+                );
+
         mostrarResultado(resultadoCosto);
     }
 
     // =========================================
-    // CONSULTA DE AEROPUERTOS Y RUTAS
+    // 7. CONSULTA DE AEROPUERTOS Y RUTAS
     // =========================================
 
-    public static void probarConsultaAeropuerto(GestorRutas gestor, String codigo) {
+    public static void probarConsultaAeropuerto(
+            GestorRutas gestor, String codigo) {
 
         System.out.println("\nAeropuerto consultado: " + codigo);
 
@@ -235,7 +277,7 @@ public class PruebaBackend {
     }
 
     // =========================================
-    // CANCELACION Y RESTAURACION DE RUTAS
+    // 8. CANCELACION Y RESTAURACION DE RUTAS
     // =========================================
 
     public static void probarCancelacionRestauracion(GestorRutas gestor) {
@@ -243,6 +285,20 @@ public class PruebaBackend {
         int rutasAntes = contarRutas(gestor);
 
         System.out.println("Rutas antes de cancelar: " + rutasAntes);
+
+        // BUSQUEDAS ANTES DE CANCELAR
+        mostrarTitulo("BUSQUEDAS ANTES DE CANCELAR");
+
+        System.out.println("\nBFS:");
+
+        probarBFS(gestor, "DEN", "SJO");
+
+        System.out.println("\nDIJKSTRA:");
+
+        probarDijkstra(gestor, "DEN", "SJO");
+
+        // CANCELAR LA RUTA
+        mostrarTitulo("CANCELACION DE RUTA");
 
         System.out.println("\nCancelando la ruta DEN -> LAX...");
 
@@ -257,24 +313,36 @@ public class PruebaBackend {
 
         System.out.println("Rutas despues de cancelar: " + contarRutas(gestor));
 
-        System.out.println("\nRutas salientes de DEN:");
+        // BUSQUEDAS DESPUES DE CANCELAR
+        mostrarTitulo("BUSQUEDAS DESPUES DE CANCELAR");
 
-        for (Ruta ruta : gestor.consultarRutasSalientes("DEN")) {
-            System.out.println("  " + ruta);
-        }
+        System.out.println("\nBFS:");
 
-        System.out.println("\nRestaurando rutas canceladas...");
+        probarBFS(gestor, "DEN", "SJO");
+
+        System.out.println("\nDIJKSTRA:");
+
+        probarDijkstra(gestor, "DEN", "SJO");
+
+        // RESTAURAR LAS RUTAS
+        mostrarTitulo("RESTAURACION DE RUTAS");
 
         gestor.restaurarRutas();
 
         System.out.println("Rutas despues de restaurar: " + contarRutas(gestor));
 
-        System.out.println("Rutas salientes de DEN:");
+        // BUSQUEDAS DESPUES DE RESTAURAR
+        mostrarTitulo("BUSQUEDAS DESPUES DE RESTAURAR");
 
-        for (Ruta ruta : gestor.consultarRutasSalientes("DEN")) {
-            System.out.println("  " + ruta);
-        }
+        System.out.println("\nBFS:");
 
+        probarBFS(gestor, "DEN", "SJO");
+
+        System.out.println("\nDIJKSTRA:");
+
+        probarDijkstra(gestor, "DEN", "SJO");
+
+        // COMPROBAR RESTAURACION
         if (contarRutas(gestor) == rutasAntes) {
             System.out.println("\nRestauracion comprobada correctamente.");
         } else {
@@ -283,7 +351,7 @@ public class PruebaBackend {
     }
 
     // =========================================
-    // CASOS ESPECIALES
+    // 9. CASOS ESPECIALES
     // =========================================
 
     public static void probarCasosEspeciales(GestorRutas gestor) {
@@ -292,37 +360,55 @@ public class PruebaBackend {
 
         System.out.println("\nBusqueda: XXX -> SJO");
 
-        mostrarResultado(gestor.buscarMenosVuelos("XXX", "SJO"));
+        mostrarResultado(
+                gestor.buscarMenosVuelos("XXX", "SJO")
+        );
 
         mostrarTitulo("CASO 2: ORIGEN Y DESTINO IGUALES");
 
         System.out.println("\nBusqueda: SJO -> SJO");
 
-        mostrarResultado(gestor.buscarMenosVuelos("SJO", "SJO"));        
+        mostrarResultado(
+                gestor.buscarMenosVuelos("SJO", "SJO")
+        );
 
         mostrarTitulo("CASO 3: NO EXISTE UNA RUTA");
 
         System.out.println("\nBusqueda: SJO -> KIN");
 
-        mostrarResultado(gestor.buscarMenosVuelos("SJO", "KIN"));
+        mostrarResultado(
+                gestor.buscarMenosVuelos("SJO", "KIN")
+        );
 
         System.out.println("\n--- COMPROBACION CON DIJKSTRA ---");
 
         System.out.println("\nXXX -> SJO:");
 
-        mostrarResultado(gestor.buscarRutaOptima("XXX", "SJO", CriterioRuta.MENOR_TIEMPO));
+        mostrarResultado(
+                gestor.buscarRutaOptima(
+                        "XXX", "SJO", CriterioRuta.MENOR_TIEMPO
+                )
+        );
 
         System.out.println("\nSJO -> SJO:");
 
-        mostrarResultado(gestor.buscarRutaOptima("SJO", "SJO", CriterioRuta.MENOR_TIEMPO));
+        mostrarResultado(
+                gestor.buscarRutaOptima(
+                        "SJO", "SJO", CriterioRuta.MENOR_TIEMPO
+                )
+        );
 
         System.out.println("\nSJO -> KIN:");
 
-        mostrarResultado(gestor.buscarRutaOptima("SJO", "KIN", CriterioRuta.MENOR_TIEMPO));
+        mostrarResultado(
+                gestor.buscarRutaOptima(
+                        "SJO", "KIN", CriterioRuta.MENOR_TIEMPO
+                )
+        );
     }
 
     // =========================================
-    // PRUEBAS CON ARCHIVOS ALTERNATIVOS
+    // 10. PRUEBAS CON ARCHIVOS ALTERNATIVOS
     // =========================================
 
     public static void probarArchivosAlternativos() {
@@ -330,11 +416,15 @@ public class PruebaBackend {
         try {
             GestorRutas gestorPrueba = new GestorRutas();
 
-            gestorPrueba.cargarDatos("datos/prueba_aeropuertos.txt", "datos/prueba_rutas.txt");
+            gestorPrueba.cargarDatos(
+                    "datos/prueba_aeropuertos.txt",
+                    "datos/prueba_rutas.txt"
+            );
 
             System.out.println("\nDatos alternativos cargados correctamente.");
 
-            System.out.println("Aeropuertos: " + gestorPrueba.obtenerTodosAeropuertos().size());
+            System.out.println("Aeropuertos: "
+                    + gestorPrueba.obtenerTodosAeropuertos().size());
 
             System.out.println("\n--- BFS: MENOS VUELOS ---");
 
@@ -351,7 +441,7 @@ public class PruebaBackend {
     }
 
     // =========================================
-    // METODOS AUXILIARES
+    // 11. METODOS AUXILIARES
     // =========================================
 
     public static int contarRutas(GestorRutas gestor) {
@@ -377,13 +467,17 @@ public class PruebaBackend {
 
         if (resultado.existeRuta()) {
 
-            System.out.println("Recorrido: " + String.join(" -> ", resultado.getAeropuertos()));
+            System.out.println("Recorrido: "
+                    + String.join(" -> ", resultado.getAeropuertos()));
 
-            System.out.println("Cantidad de vuelos: " + resultado.getCantidadVuelos());
+            System.out.println("Cantidad de vuelos: "
+                    + resultado.getCantidadVuelos());
 
-            System.out.println("Minutos totales: " + resultado.getMinutosTotales());
+            System.out.println("Minutos totales: "
+                    + resultado.getMinutosTotales());
 
-            System.out.println("Costo total: $" + resultado.getCostoTotal());
+            System.out.println("Costo total: $"
+                    + resultado.getCostoTotal());
 
         } else {
             System.out.println("No existe una ruta disponible.");
