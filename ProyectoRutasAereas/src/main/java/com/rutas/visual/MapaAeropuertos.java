@@ -89,9 +89,7 @@ public class MapaAeropuertos extends Pane {
         lienzo.setLayoutY((getHeight() - TAMANO * factor) / 2);
     }
 
-    // =========================================
     // DIBUJO INICIAL
-    // =========================================
 
     /** Dibuja todos los aeropuertos y rutas. Borra lo que hubiera antes. */
     public void dibujar(Map<String, Aeropuerto> todos, List<Ruta> rutas) {
@@ -108,8 +106,7 @@ public class MapaAeropuertos extends Pane {
         for (Ruta ruta : rutas) {
             Line linea = crearLinea(ruta.getOrigen(), ruta.getDestino());
             linea.getStyleClass().add("ruta");
-            Tooltip.install(linea, new Tooltip(ruta.getOrigen() + " → " + ruta.getDestino()
-                    + "\n" + ruta.getMinutos() + " min, $" + ruta.getCosto()));
+            Tooltip.install(linea, new Tooltip(ruta.toString()));  // formato de Ruta.toString()
             lineas.put(clave(ruta.getOrigen(), ruta.getDestino()), linea);
             capaRutas.getChildren().add(linea);
         }
@@ -123,8 +120,7 @@ public class MapaAeropuertos extends Pane {
             codigo.getStyleClass().add("codigo-aeropuerto");
             codigo.setMouseTransparent(true);
 
-            Tooltip.install(punto, new Tooltip(a.getCodigo() + " - "
-                    + a.getCiudad().replace('_', ' ') + ", " + a.getPais().replace('_', ' ')
+            Tooltip.install(punto, new Tooltip(a.toString().replace('_', ' ')
                     + "\nClic izquierdo: origen · Clic derecho: destino"));
 
             punto.setOnMouseClicked(e -> {
@@ -161,10 +157,8 @@ public class MapaAeropuertos extends Pane {
     private String clave(String origen, String destino) {
         return origen + "-" + destino;
     }
-
-    // =========================================
+    
     // RUTA RESALTADA
-    // =========================================
 
     /** Resalta la ruta encontrada: líneas gruesas con flecha en cada tramo. */
     public void resaltarRuta(List<String> codigos) {
@@ -212,9 +206,7 @@ public class MapaAeropuertos extends Pane {
         quitarClases("aeropuerto-origen", "aeropuerto-destino", "aeropuerto-escala");
     }
 
-    // =========================================
     // SELECCIÓN DE ORIGEN Y DESTINO
-    // =========================================
 
     /** Marca con un borde el origen y el destino elegidos (antes de buscar). */
     public void marcarSeleccion(String origen, String destino) {
@@ -227,9 +219,7 @@ public class MapaAeropuertos extends Pane {
         }
     }
 
-    // =========================================
     // ALCANZABLES
-    // =========================================
 
     /**
      * Colorea los aeropuertos: los del conjunto en verde y el resto en rojo.
@@ -252,9 +242,7 @@ public class MapaAeropuertos extends Pane {
         quitarClases("aeropuerto-consultado", "aeropuerto-alcanzable", "aeropuerto-no-alcanzable");
     }
 
-    // =========================================
     // RUTAS CANCELADAS
-    // =========================================
 
     public void marcarCancelada(String origen, String destino) {
         Line linea = lineas.get(clave(origen, destino));
