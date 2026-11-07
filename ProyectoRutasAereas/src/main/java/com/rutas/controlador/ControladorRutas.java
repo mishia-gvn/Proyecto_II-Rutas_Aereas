@@ -85,9 +85,7 @@ public class ControladorRutas {
     private String alcanzablesDe;
     private boolean alcanzablesInverso;
 
-    // =========================================
     // INICIO
-    // =========================================
 
     /** JavaFX llama a este método automáticamente después de cargar el FXML. */
     @FXML
@@ -124,9 +122,7 @@ public class ControladorRutas {
         }
     }
 
-    // =========================================
     // CARGA DE ARCHIVOS
-    // =========================================
 
     /** Carga los archivos en el gestor y redibuja todo. */
     private void cargar(File archivoAeropuertos, File archivoRutas) throws Exception {
@@ -204,9 +200,7 @@ public class ControladorRutas {
         return rutas;
     }
 
-    // =========================================
     // SELECCIÓN DE ORIGEN Y DESTINO
-    // =========================================
 
     private void alHacerClicEnAeropuerto(String codigo, MouseButton boton) {
         if (boton == MouseButton.SECONDARY) {
@@ -257,9 +251,7 @@ public class ControladorRutas {
         return true;
     }
 
-    // =========================================
     // BUSCAR RUTA (BFS o Dijkstra)
-    // =========================================
 
     @FXML
     private void buscarRuta() {
@@ -376,9 +368,7 @@ public class ControladorRutas {
         return "con menos escalas";
     }
 
-    // =========================================
     // ANIMACIÓN
-    // =========================================
 
     @FXML
     private void volar() {
@@ -476,9 +466,7 @@ public class ControladorRutas {
         return tramos;
     }
 
-    // =========================================
     // CONSULTAS: DATOS, ALCANZABLES
-    // =========================================
 
     @FXML
     private void consultarAeropuerto() {
@@ -498,8 +486,7 @@ public class ControladorRutas {
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append(a.getCodigo()).append(" — ").append(a.getCiudad().replace('_', ' '))
-          .append(", ").append(a.getPais().replace('_', ' ')).append("\n");
+        sb.append(a.toString().replace('_', ' ')).append("\n");
         sb.append("Posición en el mapa: (").append(a.getX()).append(", ").append(a.getY()).append(")\n\n");
 
         List<Ruta> salientes = gestor.consultarRutasSalientes(codigo);
@@ -508,8 +495,7 @@ public class ControladorRutas {
             sb.append("  (ninguna)\n");
         }
         for (Ruta r : salientes) {
-            sb.append(String.format("  → %-4s %5d min   $%s%n",
-                    r.getDestino(), r.getMinutos(), AnimacionVuelo.formatoCosto(r.getCosto())));
+            sb.append("  ").append(r).append("\n");  // formato definido en Ruta.toString()
         }
         txtDetalle.setText(sb.toString());
     }
@@ -548,15 +534,17 @@ public class ControladorRutas {
         alcanzablesInverso = inverso;
 
         Set<String> conectados;
+        Set<String> noConectados;
         if (inverso) {
             conectados = new TreeSet<>(gestor.obtenerOrigenesAlcanzables(codigo));
+            // El servicio no tiene "no pueden llegar": son todos menos los que sí llegan
+            noConectados = new TreeSet<>(gestor.obtenerTodosAeropuertos().keySet());
+            noConectados.removeAll(conectados);
         } else {
             conectados = new TreeSet<>(gestor.obtenerAlcanzables(codigo));
+            noConectados = new TreeSet<>(gestor.obtenerNoAlcanzables(codigo));
         }
-        conectados.remove(codigo);  // el propio aeropuerto no se cuenta
-
-        Set<String> noConectados = new TreeSet<>(gestor.obtenerTodosAeropuertos().keySet());
-        noConectados.removeAll(conectados);
+        conectados.remove(codigo);    // el propio aeropuerto no se cuenta
         noConectados.remove(codigo);
 
         mapa.colorearAlcanzables(codigo, conectados);
@@ -582,9 +570,7 @@ public class ControladorRutas {
         mensaje("Mapa limpio.");
     }
 
-    // =========================================
     // CANCELAR Y RESTAURAR RUTAS
-    // =========================================
 
     /** Llena el combo de destinos con las rutas salientes actuales del origen elegido. */
     private void llenarDestinosCancelacion() {
@@ -665,9 +651,7 @@ public class ControladorRutas {
         return "";
     }
 
-    // =========================================
     // UTILIDADES
-    // =========================================
 
     private void mensaje(String texto) {
         lblMensaje.setText(texto);
