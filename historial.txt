@@ -1,0 +1,215 @@
+commit 51c7be1fc7deeb0fb16250653341c9e613edacf7
+Author: mishia-gvn <mishia.valverde.narvaez@est.una.ac.cr>
+Date:   2026-11-08
+
+    Agregar el informe y README
+
+ Informe - Rutas Aereas.pdf | Bin 0 -> 219416 bytes
+ README.md                  | 171 +++++++++++++++++++++++++++++++++------------
+ 2 files changed, 125 insertions(+), 46 deletions(-)
+
+commit e3839ac8d22024bcdd0856615c3db521fe5278cd
+Merge: 95de4ac 7fcc7f0
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-07
+
+    Merge pull request #4 from mishia-gvn/interfaz
+    
+    Controlador y mapa: usar toString de los modelos y obtenerNoAlcanzabl…
+
+commit 7fcc7f005e38378e9d2b3b4e8e0dd0a3ce944343
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-07
+
+    Controlador y mapa: usar toString de los modelos y obtenerNoAlcanzables del servicio
+
+ .../com/rutas/controlador/ControladorRutas.java    | 34 ++++++----------------
+ .../java/com/rutas/visual/MapaAeropuertos.java     | 20 +++----------
+ 2 files changed, 13 insertions(+), 41 deletions(-)
+
+commit 95de4ac906a7facafbf23ecacd622df097fc5494
+Merge: f0ad001 a9cc8d6
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    Merge pull request #3 from mishia-gvn/interfaz
+    
+    README: datos tecnicos, ejecucion y uso de la interfaz
+
+commit a9cc8d6fb320fb858d273e79b13d1b07b0cc8007
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    README: datos tecnicos, ejecucion y uso de la interfaz
+
+ README.md | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
+
+commit f0ad0016c9e9bef22e67c9feec01cf054b8bbf90
+Merge: 9fd2e99 4d018ee
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    Merge pull request #2 from mishia-gvn/interfaz
+    
+    Ventana principal se abre maximizada
+
+commit 4d018eea30b03457ba664e9ac85d6c4efe61b959
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    Ventana principal se abre maximizada
+
+ .../src/main/java/com/rutas/ProyectoRutasAereas.java          | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
+
+commit 9fd2e990971e70c2c1bde81a735284bd1e922292
+Merge: 29f8d28 df8a681
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    Merge pull request #1 from mishia-gvn/interfaz
+    
+    Interfaz gráfica JavaFX: mapa, animación y controles.
+
+commit df8a681dd3578dd95cc069c1502e25ff6d7dcdf7
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    Clase principal abre la ventana JavaFX
+
+ .../main/java/com/rutas/ProyectoRutasAereas.java   | 36 +++++++++++++++++++++-
+ 1 file changed, 35 insertions(+), 1 deletion(-)
+
+commit 98ac8f27f9f4fc022afe76506a349831a4d0d9ea
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    Controlador: conexion de la interfaz con GestorRutas
+
+ .../com/rutas/controlador/ControladorRutas.java    | 677 ++++++++++++++++++++-
+ 1 file changed, 676 insertions(+), 1 deletion(-)
+
+commit 4621cabe5829848cff953e4d08e45f05b7ef942a
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    Vista principal FXML y estilos
+
+ .../src/main/resources/com/rutas/vista/estilos.css | 195 +++++++++++++++++++++
+ .../main/resources/com/rutas/vista/principal.fxml  | 188 ++++++++++++++++++++
+ 2 files changed, 383 insertions(+)
+
+commit 1078ff01a0a7670a9098b38f2a338534478c364f
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    Animacion del vuelo tramo por tramo con escalas, pausa y reinicio
+
+ .../main/java/com/rutas/visual/AnimacioVuelo.java  |   5 -
+ .../main/java/com/rutas/visual/AnimacionVuelo.java | 262 +++++++++++++++++++++
+ 2 files changed, 262 insertions(+), 5 deletions(-)
+
+commit 2cdc614453e8ace0f1b8ef298f11bc8235a641b4
+Author: MaFerJimenez-14 <maria.jimenez.alpizar@est.una.ac.cr>
+Date:   2026-11-06
+
+    Mapa de aeropuertos y rutas con JavaFX
+
+ .../java/com/rutas/visual/MapaAeropuertos.java     | 300 ++++++++++++++++++++-
+ 1 file changed, 298 insertions(+), 2 deletions(-)
+
+commit 29f8d286053a14b44eb5cea9490ab5e55f4ba3ee
+Author: mishia-gvn <mishia.valverde.narvaez@est.una.ac.cr>
+Date:   2026-11-05
+
+    Organización y limpieza de las pruebas del backend
+
+ .../src/main/java/com/rutas/PruebaBackend.java     | 190 +++++++++++++++------
+ .../src/main/java/com/rutas/algoritmos/DFS.java    |  52 ++++++
+ .../main/java/com/rutas/servicio/GestorRutas.java  | 129 ++++++++++++--
+ 3 files changed, 312 insertions(+), 59 deletions(-)
+
+commit 9a5681ba93d413512bb8a5aa5eb70032613a96f5
+Author: mishia-gvn <mishia.valverde.narvaez@est.una.ac.cr>
+Date:   2026-11-05
+
+    Estructura del Servicio y pruebas
+
+ ProyectoRutasAereas/datos/prueba_aeropuertos.txt   |   5 +
+ ProyectoRutasAereas/datos/prueba_rutas.txt         |   5 +
+ .../src/main/java/com/rutas/PruebaBackend.java     | 392 +++++++++++++++++++++
+ .../main/java/com/rutas/servicio/GestorRutas.java  | 150 +++++++-
+ 4 files changed, 550 insertions(+), 2 deletions(-)
+
+commit 891641dd6359eb610dd98336c699e0cefd316173
+Author: mishia-gvn <mishia.valverde.narvaez@est.una.ac.cr>
+Date:   2026-11-05
+
+    Estructura de algoritmos hecha
+
+ .../src/main/java/com/rutas/algoritmos/BFS.java    | 120 ++++++++++++++-
+ .../src/main/java/com/rutas/algoritmos/DFS.java    |  78 +++++++++-
+ .../main/java/com/rutas/algoritmos/Dijkstra.java   | 169 ++++++++++++++++++++-
+ 3 files changed, 361 insertions(+), 6 deletions(-)
+
+commit 036d0dd7aacc3cd8ed561761d335615a8c03d488
+Author: mishia-gvn <mishia.valverde.narvaez@est.una.ac.cr>
+Date:   2026-11-05
+
+    Estructura de modelos hecha
+
+ .../src/main/java/com/rutas/modelo/Aeropuerto.java | 37 +++++++++
+ .../main/java/com/rutas/modelo/CriterioRuta.java   |  5 +-
+ .../src/main/java/com/rutas/modelo/Grafo.java      | 93 +++++++++++++++++++++-
+ .../main/java/com/rutas/modelo/ResultadoRuta.java  | 37 +++++++++
+ .../src/main/java/com/rutas/modelo/Ruta.java       | 33 ++++++++
+ 5 files changed, 201 insertions(+), 4 deletions(-)
+
+commit e07b5a1e166eb8c486a0a403118b960a707a700c
+Author: mishia-gvn <mishia.valverde.narvaez@est.una.ac.cr>
+Date:   2026-11-04
+
+    Estructura inicial del proyecto Rutas Aereas
+
+ .gitignore                                         |   1 +
+ ProyectoRutasAereas/datos/LEEME.txt                |  26 +++
+ ProyectoRutasAereas/datos/aeropuertos.txt          |  41 +++++
+ ProyectoRutasAereas/datos/mapa_referencia.png      | Bin 0 -> 227591 bytes
+ ProyectoRutasAereas/datos/rutas.txt                | 203 +++++++++++++++++++++
+ ProyectoRutasAereas/pom.xml                        |  63 +++++++
+ .../main/java/com/rutas/ProyectoRutasAereas.java   |   8 +
+ .../src/main/java/com/rutas/algoritmos/BFS.java    |   5 +
+ .../src/main/java/com/rutas/algoritmos/DFS.java    |   5 +
+ .../main/java/com/rutas/algoritmos/Dijkstra.java   |   5 +
+ .../com/rutas/controlador/ControladorRutas.java    |   5 +
+ .../src/main/java/com/rutas/modelo/Aeropuerto.java |   5 +
+ .../main/java/com/rutas/modelo/CriterioRuta.java   |   5 +
+ .../src/main/java/com/rutas/modelo/Grafo.java      |   5 +
+ .../main/java/com/rutas/modelo/ResultadoRuta.java  |   5 +
+ .../src/main/java/com/rutas/modelo/Ruta.java       |   5 +
+ .../main/java/com/rutas/servicio/GestorRutas.java  |   5 +
+ .../main/java/com/rutas/visual/AnimacioVuelo.java  |   5 +
+ .../java/com/rutas/visual/MapaAeropuertos.java     |   5 +
+ .../src/main/resources/com/rutas/vista/estilos.css |   0
+ .../main/resources/com/rutas/vista/principal.fxml  |   0
+ 21 files changed, 402 insertions(+)
+
+commit 16d7b092ed6a1bc73fcfb453669fb9b65e0899fc
+Author: Mishia Valverde Narváez <mishia.valverde.narvaez@est.una.ac.cr>
+Date:   2026-11-04
+
+    Fix README title formatting and accents
+
+ README.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c71929de5ea226f14217f4f5480c9decb324497e
+Author: Mishia Valverde Narváez <mishia.valverde.narvaez@est.una.ac.cr>
+Date:   2026-11-04
+
+    Initial commit
+
+ .gitignore | 24 ++++++++++++++++++++++++
+ README.md  |  2 ++
+ 2 files changed, 26 insertions(+)
